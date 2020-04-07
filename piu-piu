@@ -66,8 +66,8 @@ line () { printf %.s"$1" `seq $2`; } #                               |
 
 function start_opt {
 #------------------------{ Start opt }------------------------{ description }--------------{ def. values }--------------
- msngr_line1=' Die alien scum '                     # text on messanger plane line1       ' Die alien scum '
- msngr_line2='      DIE!      '                     # text on messanger plane line2       '      DIE!      '
+ msngr_line1='    Stay at     '                     # text on messanger plane line1       ' Die alien scum '
+ msngr_line2='    HOME!!!     '                     # text on messanger plane line2       '      DIE!      '
   background=true									# background objects visibility				(true)
     bossborn=										# boss starter
     tillboss=100									# frags needed to fight with boss			(100)
@@ -84,13 +84,13 @@ function start_opt {
         FPSL=100									# lower FPS initial value					(100)
         FPSM=0										# maximum FPS initial value					(0)
         FPSC=0										# FPS counter								(0)
-         MSN=1111                                   # messanger randomizer                      (1111)
-         day=`date +'%d'`                          # get current  day
+         MSN=555                                    # messanger randomizer                      (1111)
+         day=`date +'%d'`                           # get current  day
          rnd=10										# random seed 4 bonuses						(10)
-         spd=0.0001									# game\read speed							(0.0001)
+         spd=0.01									# game\read speed							(0.0001)
          DHC=$BLK									# default hero color						($BLK)
          DSC=$RED									# default symbol color						($red)
-         DHS=★										# default symbol							(★)
+         DHS=✚										# default symbol							(★)
          OBJ=()										# start obj array
          PIU=()										# start piu array
           BJ=10                                     # boss jumps
@@ -739,27 +739,25 @@ function sprite_tree3 {
 }
 
 #------------------------{ Aliens slow }---------------------------------------------------------------------------------
-       alien=('Z___ '
-              '(   ) '
-              'Z`¯´ '); alienH=${#alien[*]}; alienW=${#alien[1]}
+       alien=('Z.__, '
+              '-(  )- '
+              'Z´‾‾` ')
+      alienH=${#alien[*]}
+      alienW=${#alien[1]}
 
-      pumtop=( '\\' '|' '|' '/')
-     pumface=('O…o'
-              '…o '
-              'o  '
-              '   '
-              '  O'
-              ' O…')
+       small=('* '
+              '  '
+              ' *')
 
-         CM1=$SKY$DIM$BLK; CM2=$SKY$BLD$BLK
+      small2=($RED'* '$SKY
+              $RED'  '$SKY
+              $RED' *'$SKY)
 
-    case "$day$month" in 3110)
-        CM1=$SKY$DIM$ylw; CM2=$SKY$UND$DIM$grn;;
-    esac
+         CM1=$SKY$DIM$BLK
 
- alien_color=("$SKY $CM1 $CM2 $CM1 $SKY $SKY"
-              "$CM1 $red $red $red $CM1 $SKY"
-              "$SKY $CM1 $CM1 $CM1 $SKY $SKY")
+ alien_color=("$SKY $RED $CM1 $CM1 $RED $SKY"
+              "$RED $CM1 $RED $RED $CM1 $SKY"
+              "$SKY $RED $CM1 $CM1 $RED $SKY")
 
 function sprite_alien {
 
@@ -768,30 +766,13 @@ function sprite_alien {
        color=("${alien_color[@]}")
 	  target=("$OX $[$OY+1]" "$[$OX+1] $[$OY+1]")
 
+	  sprite=("\e[$OY;$[$OX+1]H${RED}.${CM1}__${RED},$SKY "
+              "\e[$[$OY+1];${OX}H$RED-${CM1}(${small2[$L]}${CM1})$RED-$SKY "
+              "\e[$[$OY+2];$[$OX+1]H$RED´$CM1‾‾$RED\`$SKY ")
 
-
-    case "$day$month" in
-
-        3110)
-         CM1=$SKY$DIM$ylw; CM2=$SKY$UND$DIM$grn
-	  sprite=("\e[$OY;$[$OX+1]H${CM1}_$CM2${pumtop[$L]}${CM1}_$SKY "
-              "\e[$[$OY+1];${OX}H${CM1}(${red}${pumface[$Q]}${CM1})$SKY "
-              "\e[$[$OY+2];$[$OX+1]H"${CM1}'`¯´'"$SKY ")
-
-     sprite2=("Z_${pumtop[$L]}_ "
-              "(${pumface[$Q]}) "
-              'Z`¯´ ');;
-
-		*)
-         CM1=$SKY$DIM$BLK; CM2=$BLD$BLK
-	  sprite=("\e[$OY;$[$OX+1]H${CM1}_${CM2}_${CM1}_$SKY "
-              "\e[$[$OY+1];${OX}H${CM1}(${red}${small[$L]}${CM1})$SKY "
-              "\e[$[$OY+2];$[$OX+1]H"${CM1}'`¯´'"$SKY ")
-
-     sprite2=('Z___ '
-              "(${small[$L]}) "
-              'Z`¯´ ');;
-	esac
+     sprite2=("Z.__, "
+              "-(${small[$L]})- "
+              "Z´‾‾\` ")
 }
     case "$day$month" in
 
@@ -1561,11 +1542,11 @@ function game_team {
 
 	    #-{ Print game status }------------------------------------------------------------------------------------------
 	    [[ $server ]] && {
-		    screen+="\e[$endy;2H$LND$SC2$HS2 ${BLK}killed aliens: $LND$RED$frags2$LND  ${BLK}Life: $LND$RED$life2$LND  ${BLK}Ammo: $LND$RED$ammo2$LND "
-		    screen+="\e[1;2H$SKY$SC$HS ${BLK}killed aliens: $SKY$RED$frags$SKY  ${BLK}Life: $SKY$RED$life$SKY  ${BLK}Ammo: $SKY$RED$ammo$SKY "
+		    screen+="\e[$endy;2H$LND$SC2$HS2 ${BLK}killed viruses: $LND$RED$frags2$LND  ${BLK}Life: $LND$RED$life2$LND  ${BLK}Ammo: $LND$RED$ammo2$LND "
+		    screen+="\e[1;2H$SKY$SC$HS ${BLK}killed viruses: $SKY$RED$frags$SKY  ${BLK}Life: $SKY$RED$life$SKY  ${BLK}Ammo: $SKY$RED$ammo$SKY "
 		    screen+="\e[$endy;$[$endx-10]H$LND${BLK}FPS: $RED$FPS  "
 	    } || {
-		    screen+="\e[1;2H$SKY${BLK}killed aliens: $SKY$RED$frags$SKY  ${BLK}Life: $SKY$RED$life$SKY  ${BLK}Ammo: $SKY$RED$ammo$SKY "
+		    screen+="\e[1;2H$SKY${BLK}killed viruses: $SKY$RED$frags$SKY  ${BLK}Life: $SKY$RED$life$SKY  ${BLK}Ammo: $SKY$RED$ammo$SKY "
 		    screen+="\e[$endy;2H$LND${BLK}FPS: $RED$FPS ${BLK}FPS max: $RED$FPSM ${BLK}FPS low: $RED$FPSL "
 	    }
 
