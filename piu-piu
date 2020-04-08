@@ -87,7 +87,7 @@ function start_opt {
          MSN=555                                    # messanger randomizer                      (1111)
          day=`date +'%d'`                           # get current  day
          rnd=10										# random seed 4 bonuses						(10)
-         spd=0.01									# game\read speed							(0.0001)
+         spd=0.0001									# game\read speed							(0.0001)
          DHC=$BLK									# default hero color						($BLK)
          DSC=$RED									# default symbol color						($red)
          DHS=✚										# default symbol							(★)
