@@ -753,6 +753,13 @@ function sprite_tree3 {
               $RED'  '$SKY
               $RED' *'$SKY)
 
+        top1=(. , ' ')
+        top2=(' ' . ,)
+        bot1=('´' '"' '`')
+        bot2=('`' '"' '´')
+        mid1=(- + ' ')
+        mid2=(+ ' ' -)
+
          CM1=$SKY$DIM$BLK
 
  alien_color=("$SKY $RED $CM1 $CM1 $RED $SKY"
@@ -766,13 +773,13 @@ function sprite_alien {
        color=("${alien_color[@]}")
 	  target=("$OX $[$OY+1]" "$[$OX+1] $[$OY+1]")
 
-	  sprite=("\e[$OY;$[$OX+1]H${RED}.${CM1}__${RED},$SKY "
-              "\e[$[$OY+1];${OX}H$RED-${CM1}(${small2[$L]}${CM1})$RED-$SKY "
-              "\e[$[$OY+2];$[$OX+1]H$RED´$CM1‾‾$RED\`$SKY ")
+	  sprite=("\e[$OY;$[$OX+1]H${RED}${top1[$L]}${CM1}__${RED}${top2[$L]}$SKY "
+              "\e[$[$OY+1];${OX}H$RED${mid1[$L]}${CM1}(${small2[$L]}${CM1})$RED${mid2[$L]}$SKY "
+              "\e[$[$OY+2];$[$OX+1]H$RED${bot1[$L]}$CM1‾‾$RED${bot2[$L]}$SKY ")
 
-     sprite2=("Z.__, "
-              "-(${small[$L]})- "
-              "Z´‾‾\` ")
+     sprite2=("Z${top1[$L]}__${top2[$L]} "
+              "${mid1[$L]}(${small[$L]})${mid2[$L]} "
+              "Z${bot1[$L]}‾‾${bot2[$L]} ")
 }
     case "$day$month" in
 
@@ -1465,7 +1472,7 @@ function mover () { timer=$1
 function timings {
 
 	[[ $K   -ge 20 ]] && K=0 || ((K++))	# boss' fire rate
-	[[ $L   -ge 3  ]] && L=0 || ((L++))	# sprites animation
+	[[ $L   -ge 2  ]] && L=0 || ((L++))	# sprites animation
 	[[ $J   -ge 5  ]] && J=0 || ((J++))	# boss' bullet animation
 	[[ $Q   -ge 6  ]] && Q=0 || ((Q++))	# tree1\cloud1(small)  speed
 	[[ $W   -ge 4  ]] && W=0 || ((W++))	# tree2\cloud2(medium) speed
