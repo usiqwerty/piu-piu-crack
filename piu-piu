@@ -80,7 +80,7 @@ function start_opt {
        frags=0										# frags counter								(0)
         jump=false
         life=3										# life counter								(3)
-        ammo=1000									# ammo counter								(100)
+        ammo=100									# ammo counter								(100)
         FPSL=100									# lower FPS initial value					(100)
         FPSM=0										# maximum FPS initial value					(0)
         FPSC=0										# FPS counter								(0)
@@ -213,13 +213,10 @@ esac
 
 #------------------------{ Shoots }--------------------------------------------------------------------------------------
 
-              # -=>
+              # ==
               # <=-
 
-       shoot=("$SKY $RED-$SKY$BLD$GRN>$SKY"
-              "$BLD$red-=$SKY$GRN>$SKY"
-              "$red=-$SKY$BLD$GRN>$SKY"
-              "$RED-$SKY $GRN>$SKY")
+       shoot=("$SKY $RED=$BLU=$SKY")
 
       shoot2=("$SKY$BLD$GRN<$SKY$RED-$SKY "
               "$SKY$GRN<$BLD$red=-$SKY"
@@ -247,14 +244,14 @@ function sprite_bfire {
 }
 
 #------------------------{ Bonuses }-------------------------------------------------------------------------------------
-       ammob=('-=> '
-              '-=> '
-              '-=> '); ammobH=${#ammob[*]}; ammobW=${#ammob[1]}
+       ammob=(' _ _ '
+              '(_|_) ')
+      ammobH=${#ammob[*]}
+      ammobW=${#ammob[1]}
 
          CM1=$BLD$red; CM2=$SKY$GRN
- ammob_color=("$CM1 $CM1 $CM2 $SKY"
-              "$CM1 $CM1 $CM2 $SKY"
-              "$CM1 $CM1 $CM2 $SKY")
+ ammob_color=("$RED $RED $BLU $BLU $SKY"
+              "$RED $RED $BLU $BLU $SKY")
 
 function sprite_ammob {
 
@@ -263,9 +260,8 @@ function sprite_ammob {
        color=("${ammob_color[@]}")
 	  target=("$OX $OY" "$OX $[$OY+1]" "$OX $[$OY+2]")
 
-      sprite=("\e[$OY;${OX}H$BLD$red-=$SKY$GRN>$SKY "
-         "\e[$[$OY+1];${OX}H$BLD$red-=$SKY$GRN>$SKY "
-         "\e[$[$OY+2];${OX}H$BLD$red-=$SKY$GRN>$SKY ")
+      sprite=("\e[$OY;${OX}H$RED _$BLU _$SKY "
+         "\e[$[$OY+1];${OX}H$RED(_$BLU|_)$SKY ")
 
      sprite2=("${ammob[@]}")
 }
@@ -1475,11 +1471,11 @@ function game_team {
 
 	    #-{ Print game status }------------------------------------------------------------------------------------------
 	    [[ $server ]] && {
-		    screen+="\e[$endy;2H$LND$SC2$HS2 ${BLK}killed viruses: $LND$RED$frags2$LND  ${BLK}Life: $LND$RED$life2$LND  ${BLK}Ammo: $LND$RED$ammo2$LND "
-		    screen+="\e[1;2H$SKY$SC$HS ${BLK}killed viruses: $SKY$RED$frags$SKY  ${BLK}Life: $SKY$RED$life$SKY  ${BLK}Ammo: $SKY$RED$ammo$SKY "
+		    screen+="\e[$endy;2H$LND$SC2$HS2 ${BLK}killed viruses: $LND$RED$frags2$LND  ${BLK}Life: $LND$RED$life2$LND  ${BLK}Meds: $LND$RED$ammo2$LND "
+		    screen+="\e[1;2H$SKY$SC$HS ${BLK}killed viruses: $SKY$RED$frags$SKY  ${BLK}Life: $SKY$RED$life$SKY  ${BLK}Meds: $SKY$RED$ammo$SKY "
 		    screen+="\e[$endy;$[$endx-10]H$LND${BLK}FPS: $RED$FPS  "
 	    } || {
-		    screen+="\e[1;2H$SKY${BLK}killed viruses: $SKY$RED$frags$SKY  ${BLK}Life: $SKY$RED$life$SKY  ${BLK}Ammo: $SKY$RED$ammo$SKY "
+		    screen+="\e[1;2H$SKY${BLK}killed viruses: $SKY$RED$frags$SKY  ${BLK}Life: $SKY$RED$life$SKY  ${BLK}Meds: $SKY$RED$ammo$SKY "
 		    screen+="\e[$endy;2H$LND${BLK}FPS: $RED$FPS ${BLK}FPS max: $RED$FPSM ${BLK}FPS low: $RED$FPSL "
 	    }
 
@@ -1582,8 +1578,8 @@ function game_duel {
 	    screen+="\e[$lineendy;1H$LND${land:$[1-$LX]:$endx}"; [[ $LX -lt -$[$LN/2] ]] && LX=-1 || ((LX--))
 
 	    #-{ Print game status }------------------------------------------------------------------------------------------
-	    screen+="\e[$endy;2H$LND$SC2$HS2 ${BLK}Life: $LND$RED$life2$LND  ${BLK}Ammo: $LND$RED$ammo2$LND "
-	    screen+="\e[1;2H$SKY$SC$HS ${BLK}Life: $SKY$RED$life$SKY  ${BLK}Ammo: $SKY$RED$ammo$SKY         "
+	    screen+="\e[$endy;2H$LND$SC2$HS2 ${BLK}Life: $LND$RED$life2$LND  ${BLK}Meds: $LND$RED$ammo2$LND "
+	    screen+="\e[1;2H$SKY$SC$HS ${BLK}Life: $SKY$RED$life$SKY  ${BLK}Meds: $SKY$RED$ammo$SKY         "
 	    screen+="\e[$endy;$[$endx-10]H$LND${BLK}FPS: $RED$FPS  "
 
 	    #-{ Print heroes }-----------------------------------------------------------------------------------------------
