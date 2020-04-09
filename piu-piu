@@ -216,7 +216,7 @@ esac
               # ==
               # <=-
 
-       shoot=("$SKY $RED=$BLU=$SKY")
+       shoot="$SKY $RED=$BLU=$SKY"
 
       shoot2=("$SKY$BLD$GRN<$SKY$RED-$SKY "
               "$SKY$GRN<$BLD$red=-$SKY"
@@ -1541,7 +1541,7 @@ function game_team {
 		    [[ $PX -ge $bullendx ]] && { remove_piu $t; continue; } || { PIU[$t]="$PX $PY $owner"; }
 
 		    # print
-		    screen+="\e[$PY;${PX}H$SKY ${shoot[$L]}"
+		    screen+="\e[$PY;${PX}H$SKY $shoot"
 
 	    done
 
