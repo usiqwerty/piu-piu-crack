@@ -80,7 +80,7 @@ function start_opt {
        frags=0										# frags counter								(0)
         jump=false
         life=3										# life counter								(3)
-        ammo=100									# ammo counter								(100)
+        ammo=1000									# ammo counter								(100)
         FPSL=100									# lower FPS initial value					(100)
         FPSM=0										# maximum FPS initial value					(0)
         FPSC=0										# FPS counter								(0)
@@ -210,33 +210,6 @@ esac
          gun=(─ ─ ═ ≡ ≣ 𝄚)
 
        grass=(│ ' ' ║ ' ' ░ ' ' ▒ ' ' ▓ ' ' █) # grass types
-
-#------------------------{ Cycle slow }----------------------------------------------------------------------------------
-         big=(' O   O '
-		      'O   O  '
-              '   O   '
-              '  O   O')
-
-       small=('o  '
-              '   '
-              '  o'
-              ' o ')
-
-#------------------------{ Cycle fast }----------------------------------------------------------------------------------
-        big2=($RED' O   O '$SKY
-		      $RED'O   O  '$SKY
-              $RED"   ${BLD}O   "$SKY
-              $RED'  O   O'$SKY)
-
-        big3=($BLU'  O   O'$SKY
-              $BLU"   ${BLD}O   "$SKY
-		      $BLU'O   O  '$SKY
-              $BLU' O   O '$SKY)
-
-      small2=($YLW" ${BLD}o "$SKY
-              $YLW'  o'$SKY
-              $YLW'   '$SKY
-              $YLW'o  '$SKY)
 
 #------------------------{ Shoots }--------------------------------------------------------------------------------------
 
@@ -487,7 +460,7 @@ function sprite_msngr {
      sprite2=("${msngr[@]}")
 }
 
-#------------------------{ Trees }---------------------------------------------------------------------------------------
+#------------------------{ Trees }--------------------------------------------------------------------------------------
 
 	case $month in
         0[1-4]|12) T1C=$SKY$DIM$WHT;; # winter & early spring
@@ -738,7 +711,7 @@ function sprite_tree3 {
      sprite2=("${tree3[@]}")
 }
 
-#------------------------{ Aliens slow }---------------------------------------------------------------------------------
+#------------------------{ Small covid }--------------------------------------------------------------------------------
        alien=('Z.__, '
               '-(  )- '
               'Z´‾‾` ')
@@ -773,73 +746,48 @@ function sprite_alien {
        color=("${alien_color[@]}")
 	  target=("$OX $[$OY+1]" "$[$OX+1] $[$OY+1]")
 
-	  sprite=("\e[$OY;$[$OX+1]H${RED}${top1[$L]}${CM1}__${RED}${top2[$L]}$SKY "
-              "\e[$[$OY+1];${OX}H$RED${mid1[$L]}${CM1}(${small2[$L]}${CM1})$RED${mid2[$L]}$SKY "
-              "\e[$[$OY+2];$[$OX+1]H$RED${bot1[$L]}$CM1‾‾$RED${bot2[$L]}$SKY ")
+	  sprite=("\e[$OY;$[$OX+1]H${RED}${top1[$E]}${CM1}__${RED}${top2[$E]}$SKY "
+              "\e[$[$OY+1];${OX}H$RED${mid1[$E]}${CM1}(${small2[$E]}${CM1})$RED${mid2[$E]}$SKY "
+              "\e[$[$OY+2];$[$OX+1]H$RED${bot1[$E]}$CM1‾‾$RED${bot2[$E]}$SKY ")
 
-     sprite2=("Z${top1[$L]}__${top2[$L]} "
-              "${mid1[$L]}(${small[$L]})${mid2[$L]} "
-              "Z${bot1[$L]}‾‾${bot2[$L]} ")
+     sprite2=("Z${top1[$E]}__${top2[$E]} "
+              "${mid1[$E]}(${small[$E]})${mid2[$E]} "
+              "Z${bot1[$E]}‾‾${bot2[$E]} ")
 }
-    case "$day$month" in
 
-        3110)
+#------------------------{ Mega virus }---------------------------------------------------------------------------------
 
-    mouthtop=('/VVVVV\'
-              '/vvvvv\'
-              '.-----.'
-              '       '
-              '.-----.'
-              '/vvvvv\'
-              '/VVVVV\')
+        big2=(' *   + '
+		      '+   *  '
+              '   +   '
+              '  *   +')
 
-    mouthlow=('VvvvvvV'
-              'V^^^^^V'
-              '`¯¯¯¯¯´'
-              ' ‾‾‾‾‾ '
-              '`-----´'
-              'V^^^^^V'
-              'VvvvvvV')
+        big3=('  *   +'
+              '   *   '
+		      '*   +  '
+              ' +   * ')
 
-        boss=('ZZ         '
-              'ZZZ.--._.-.  '
-              'ZZ/(⁐ ) () \ '
-              'Z❲ /VVVVV\ ❳ '
-              'ZZ\VvvvvvV /  '
-              'ZZZ`¯----¯´  '
-              'ZZ         '); bossH=${#boss[*]}; bossW=${#boss[3]}
 
-         CM1=$SKY$DIM$ylw; CM2=$DIM$UND$grn; CM6=$BLD$RED
+        boss=('ZZ        '      #1
+              'ZZZ. ___,  '     #2
+              'ZZZ/`   `\   '   #3
+              'Z+|       |+ '   #4
+              'ZZ\       /  '   #5
+              'ZZ*`-.,.-`+  '   #6
+              'ZZ          ')   #7
+       bossH=${#boss[*]}
+       bossW=${#boss[3]}
+
+         CM1=$DIM$BLK CM2=$BLD$BLK CM3=$SKY$BLK CM4=$SKY$BLU CM5=$BLD$YLW
+         CM6=$BLD$RED CM7=$BLD$BLU CM8=$SKY$YLW CM9=$SKY$RED
 #                                        center point
-  boss_color=("$SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY"
-              "$SKY $SKY $SKY $CM1 $CM1 $CM1 $CM2 $CM1 $CM1 $CM1 $SKY $SKY $SKY"
-              "$SKY $SKY $CM1 $CM6 $CM6 $CM6 $CM6 $SKY $CM6 $CM6 $SKY $CM1 $SKY"
-              "$SKY $CM1 $SKY $RED $RED $RED $RED $RED $RED $RED $SKY $CM1 $SKY"
-              "$SKY $SKY $CM1 $RED $RED $RED $RED $RED $RED $RED $SKY $CM1 $SKY"
-              "$SKY $SKY $SKY $CM1 $CM1 $CM1 $CM1 $CM1 $CM1 $CM1 $CM1 $SKY $SKY"
-              "$SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY");;
-
-		*)
-        boss=('ZZZZ     '
-              'ZZZZZ___   '
-              'ZZZ_/   \_  '
-              'ZZ/       \  '
-              'Z(         ) '
-              'ZZ`¯¯---¯¯´  '
-              'Z           '); bossH=${#boss[*]}; bossW=${#boss[4]}
-
-
-         CM1=$DIM$BLK; CM2=$BLD$BLK; CM3=$SKY$BLK; CM4=$SKY$BLU; CM5=$BLD$YLW; CM6=$BLD$RED; CM7=$BLD$BLU; CM8=$SKY$YLW; CM9=$SKY$RED
-#                                        center point
-  boss_color=("$SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY"
-              "$SKY $SKY $SKY $SKY $SKY $CM1 $CM2 $CM1 $SKY $SKY $SKY $SKY $SKY"
-              "$SKY $SKY $SKY $CM1 $CM1 $YLW $CM5 $CM8 $CM1 $CM1 $SKY $SKY $SKY"
-              "$SKY $SKY $CM1 $RED $RED $RED $CM6 $CM9 $RED $RED $CM1 $SKY $SKY"
-              "$SKY $CM1 $SKY $BLU $BLU $BLU $CM7 $CM4 $BLU $BLU $SKY $CM1 $SKY"
-              "$SKY $CM1 $CM1 $CM1 $CM1 $CM1 $CM1 $CM1 $CM1 $CM1 $CM1 $SKY $SKY"
-              "$SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY");;
-	esac
-
+  boss_color=("$SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY"   #1
+              "$SKY $SKY $SKY $RED $CM1 $CM1 $CM1 $CM1 $RED $SKY $SKY $SKY $SKY $SKY"   #2
+              "$SKY $SKY $SKY $CM1 $CM1 $RED $RED $RED $CM1 $CM1 $SKY $SKY $SKY $SKY"   #3
+              "$SKY $RED $CM1 $RED $RED $RED $RED $RED $RED $RED $CM1 $RED $SKY $SKY"   #4
+              "$SKY $SKY $CM1 $RED $RED $RED $RED $RED $RED $RED $CM1 $CM1 $SKY $SKY"   #5
+              "$SKY $SKY $RED $CM1 $CM1 $CM1 $CM1 $CM1 $CM1 $CM1 $RED $SKY $SKY $SKY"   #6
+              "$SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY $SKY")  #7
 
 function sprite_boss {
 
@@ -872,46 +820,23 @@ function sprite_boss {
         [[ $OX -gt 0 && $L -eq 0 ]] && BOOM $OX $OY
         [[ $OX -le -$bossW       ]] && gamend='win'
     fi
-
-    case "$day$month" in
-
-        3110)
-         CM1=$SKY$DIM$ylw; CM2=$DIM$UND$grn; CM6=$BLD$RED
-      sprite=("\e[$OY;$[$OX+2]H$SKY         "
-              "\e[$[$OY+1];${OX}H$SKY   $CM1.--.$CM2${pumtop[$L]}$CM1.-.$SKY  "
-              "\e[$[$OY+2];${OX}H$SKY  $CM1/$CM6(⁐ ) () $CM1"'\\'"$SKY "
-              "\e[$[$OY+3];${OX}H$SKY $CM1❲ $RED${mouthtop[$Q]} $CM1❳$SKY "
-           "\e[$[$OY+4];${OX}H$SKY  $CM1"'\\'"$RED${mouthlow[$Q]} $CM1/$SKY  "
-             "\e[$[$OY+5];${OX}H$SKY   $CM1"'`¯----¯´'"$SKY  "
-              "\e[$[$OY+6];$[$OX+2]H$SKY         ")
-
-     sprite2=('ZZ         '
-              "ZZZ.--.${pumtop[$L]}.-.  "
-              'ZZ/(⁐ ) () \ '
-              "Z❲ ${mouthtop[$Q]} ❳ "
-              'ZZ\'"${mouthlow[$Q]} / "
-              'ZZZ`¯----¯´  '
-              'ZZ         ');;
-
-		*)
          CM1=$DIM$BLK; CM2=$BLD$BLK
-      sprite=("\e[$OY;$[$OX+4]H$SKY     "
-       "\e[$[$OY+1];$[$OX+2]H$SKY   ${CM1}_${CM2}_${CM1}_$SKY   "
-      "\e[$[$OY+2];$[$OX+1]H$SKY  ${CM1}_/${small2[$L]}${CM1}\_$SKY  "
-        "\e[$[$OY+3];${OX}H$SKY  ${CM1}/${big2[$L]}"${CM1}'\\'"$SKY  "
-        "\e[$[$OY+4];${OX}H$SKY ${CM1}( ${big3[$L]} ${CM1})$SKY "
-      "\e[$[$OY+5];${OX}H$SKY  ${CM1}"'`¯¯---¯¯´'"$SKY  "
-      "\e[$[$OY+6];$[$OX+1]H$SKY           ")
 
-     sprite2=('ZZZZ     '
-              'ZZZZZ___   '
-              "ZZZ_/${small[$L]}\_  "
-              "ZZ/${big[$L]}\  "
-              "Z( ${big[$L]} ) "
-              'ZZ`¯¯---¯¯´  '
-              'Z           ');;
-	esac
+      sprite=("\e[$OY;$[OX+2]H$SKY          "      #1
+              "\e[$[$OY+1];$[OX+1]H$SKY   $RED${top1[E]} ${CM1}___$RED${top2[E]}$SKY  "     #2
+              "\e[$[$OY+2];$[OX+1]H$SKY   $CM1/"'`   `'"\   "   #3
+              "\e[$[$OY+3];${OX}H$SKY  $RED${mid2[E]}$CM1|$RED${big2[L]}$CM1|$RED${mid1[E]}$SKY  "   #4
+              "\e[$[$OY+4];$[OX+1]H$SKY  $CM1"'\\'"$RED${big3[L]}$CM1/$SKY  "   #5
+              "\e[$[$OY+5];$[OX+1]H$SKY  $RED${bot2[E]}$CM1"'`-.,.-'"$RED${bot1[E]}$SKY  "   #6
+              "\e[$[$OY+6];$[$OX+1]H$SKY           ")     #7
 
+     sprite2=('ZZ        '      #1
+              "ZZZ${top1[E]} ___${top2[E]}  "     #2
+              'ZZZ/`   `\   '   #3
+              "Z${mid2[E]}|${big2[L]}|${mid1[E]} "   #4
+              'ZZ\'"${big3[L]}/  "   #5
+              'ZZ*`-.,.-`+  '   #6
+              'ZZ           ')   #7
 	((cuter++)); OBJ[$i]="$OX $OY $cuter $type"
 }
 
@@ -1189,7 +1114,8 @@ tre3endy=$[$endy-$tree3H-2]
 }
 
 function default { HC=${DHC}; SC=${DSC}; HS=${DHS}; }
-function bye ()  { stty echo; printf "${CON}${DEF}"; clear; ls --color=auto; exit $1; }
+#function bye ()  { stty echo; printf "${CON}${DEF}"; clear; ls --color=auto; exit $1; }
+function bye ()  { stty echo; printf "${CON}${DEF}"; exit $1; }
 function remove_obj () { unset OBJ[$1]; OBJ=("${OBJ[@]}"); ((NO--)); }
 function remove_piu () { unset PIU[$1]; PIU=("${PIU[@]}"); ((NP--)); screen+="\e[$PY;${PX}H$SKY   "; }
 function erase_obj  () { remove_obj $1; for (( k=0; k<$2; k++ )); do screen+="\e[$[$OY+$k];${OX}H$SKY         "; done; }
@@ -1472,7 +1398,7 @@ function mover () { timer=$1
 function timings {
 
 	[[ $K   -ge 20 ]] && K=0 || ((K++))	# boss' fire rate
-	[[ $L   -ge 2  ]] && L=0 || ((L++))	# sprites animation
+	[[ $L   -ge 3  ]] && L=0 || ((L++))	# sprites animation
 	[[ $J   -ge 5  ]] && J=0 || ((J++))	# boss' bullet animation
 	[[ $Q   -ge 6  ]] && Q=0 || ((Q++))	# tree1\cloud1(small)  speed
 	[[ $W   -ge 4  ]] && W=0 || ((W++))	# tree2\cloud2(medium) speed
