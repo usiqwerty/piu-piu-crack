@@ -6,3 +6,4 @@ Cracked version of Piu-Piu gamen on bash
 # Usage
 1. Create file called mod in directory with piu-piu.
 2. First line in this file is number of lives, second amount of ammo.
+3. Run ./piu-piu
