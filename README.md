@@ -1,5 +1,5 @@
 # piu-piu-crack
-Cracked version of Piu-Piu gamen on bash
+Cracked version of Piu-Piu game on bash
 # What is there?
 - New logo (you should run it in fullscreen)
 - You can edit your lives/ammo.
