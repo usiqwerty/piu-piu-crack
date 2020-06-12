@@ -7,6 +7,8 @@ case ${BASH_VERSINFO[@]::2} in [1-3]' '[0-9][0-9]|[1-3]' '[0-9]|'4 '[0-1])
     echo -e "\nYour BASH is too short!) 4.2+ required to run this game, your is - ${BASH_VERSINFO[@]}"
     exit 1;;
 esac      #                                                                  ░ ░ ░░░ ░ ░░ ░░░▒ ▒▒▒░░░ ░░ ░░ ░ ░
+LLLLLLLLLL=$(cat mod|head -n1)
+AAAAAAAAAA=$(cat mod|head -n2|tail -n1)
 #--------------------------------------------------------------------+ ░   ░░░░ ░░░░▒▒▒▒ ▒▒▒▓ ▓▓▓▒▒▒▒▒▒▒░░░░ ░░░░ ░ ░ ░
 # Color picker, usage: printf $BLD$CUR$RED$BBLU'Hello World!'$DEF    |   ░
 #-------------------------+--------------------------------+---------+        ░   ░░░ ░░     ░  ░░      ░░  ░░ ░
@@ -51,8 +53,8 @@ que () { printf -v _N %$1s; _N=(${_N// / 1}); printf "${!_N[*]}"; } #|    ░ �
        month=$(date +'%m')                            # get current month
        crate=0                                        # crate drop                                (0)
        frags=0                                        # hero1 frags counter                       (0)
-        life=3                                        # hero1 life counter                        (3)
-        ammo=100                                      # hero1 ammo counter                        (100)
+        life=$LLLLLLLLLL                                        # hero1 life counter                        (3)
+        ammo=$AAAAAAAAAA                                      # hero1 ammo counter                        (100)
          day=$(date +'%d')                            # get current  day
          DHC=$BLK                                     # default hero color                        ($BLK)
          DSC=$RED                                     # default symbol color                      ($RED)
@@ -201,8 +203,8 @@ sprite_hero1 () {
     cut $SX  $OY    $SKY ' ' ' ' ' '     ' '      ' '     ' '     ' '     ' '      ' '     ' '      ' '     ' '     ' '     ' ' ' ' ' ' #1
     cut $SX $[OY+1] $CM1 ' ' '_' '_'     ' '                                         ${mainrotor[AS]}                               ' ' #2
     cut $SX $[OY+2] $CM2 ' ' '|' $TR $CM1'\\' $CM1'_' $CM1'_' $CM1'_' $CM3'.'  $CM3'-' $CM3'╨'  $CM4'─' $CM4'｡' $CM1'_' $SKY' ' ' ' ' ' #3
-    cut $SX $[OY+3] $CM2 ' ' '`' '─'     '´'      '‾'     '‾'     '‷'     '\\' $blk'°' $S1C$H1S $SKY' ' $blk'º' $blk'¯' $CM1']' $GN ' ' #4
-    cut $SX $[OY+4] $CM2 ' ' ' ' ' '     ' '      ' '     ' '     ' '     ' '      '‾'     '‾'      '‾'     '‾'     '‾' $SKY' ' ' ' ' ' #5
+    cut $SX $[OY+3] $CM2 ' ' '\' ' '     ' '      ' '     ' '     '‷'     '\\' $blk'°' $S1C$H1S $SKY' ' $blk'º' $blk'¯' $CM1']' $GN ' ' #4
+    cut $SX $[OY+4] $CM2 ' ' '/' '‾'     '‾'      '‾'     '‾'     '‾'     ' '      '‾'     '‾'      '‾'     '‾'     '‾' $SKY' ' ' ' ' ' #5
     cut $SX $[OY+5] $SKY ''  ''  ''      ''       ''      ''   $X1' '     ' '      ' '     ' '      ' '     ' '     ' '     ' '         #6
     [[ $C1 -gt 0  ]] && ((C1--))
     collision 1 "$re" && { BOOM $OX $OY; ((life--)); }
@@ -979,6 +981,7 @@ sprite_PIU () {
     cut $SX $[OY+6] $C1 ''   ''   '' $XC▒ $C4▓ $C3█    █    █    █ $C2▒ ▒    ▒ $C1░    ⎕    ░    ⎕ $C4▓ $C3█    █    █    █    █    █    ⎕ $C2▒ $C4▓ $C3█    █    █    █    █    █ $C1░    ░    ⎕ ░ ⎕       #7
     cut $SX $[OY+7] $C1  ░    ⎕    ░ $C2▒ $C4▓    ▓    ▓    ▓    ⎕ $C1░ ⎕    ░    ░ $C2▒ $C4▓    ▓    ▓    ▓    ▓    ▓    ⎕ $C1░    ⎕ $C2▒ $C4▓    ▓    ▓    ▓    ▓ $C1░    ⎕                               #8
     cut $SX $[OY+8] $C1 '' $X1░    ⎕    ▒    ▒    ⎕    ░    ⎕    ░    ⎕ ░    ⎕    ░    ▒    ▒    ▒    ▒    ▒    ▒    ⎕    ░    ⎕    ░    ░    ▒    ▒    ▒    ▒    ░    ⎕    ⎕    ░    ⎕                     #9
+    #cut $SX $[OY+15] $C1 $GRN UNOFFICIAL' 'MOD' 'BY' 'USIQWERTY #my
 }
 sprite_ARR () {
     [[ $OX -lt $C1 ]] && mov + || return 1
@@ -999,6 +1002,7 @@ sprite_ARR () {
     cut $SX $[OY+3] $C1  ⎕    ░ ⎕ $C2▒ $C2▓ $C2▓ $C2▓ $C2▓    ⎕ $C4▒ $C5█ $C5█ $C5█ $C5█ $C1░ $C6▒ $C6▓ $C3█ $C3█ $C3█ $C1░    ░                   #4
     cut $SX $[OY+4] $C1 '' $X1⎕ ▒    ⎕    ▒    ▒    ⎕    ⎕ $C2▒ $C2▓ $C2▓ $C2▓ $C2▓ $C6▒ $C6▓ $C3█ $C3█ $C3█ $C1░                                  #5
     cut $SX $[OY+5] $C1 ''   '' ''  '' $X2⎕    ░    ░    ░    ⎕    ▒    ▒    ▒    ⎕    ░    ░    ▒    ▒    ░                                       #6
+    cut $SX $[OY+5] $GRN ' 'UNOFFICIAL' ' MOD' 'BY' ' $RED USIQWERTY  #my
 }
 
 #================================================{ Functions }==========================================================
@@ -1306,9 +1310,9 @@ add_backgound () {
 #------------------------{ Intro }--------------------------------------------------------------------------------------
 intro () {
     i=0  #    start X                           target X
-    INT=("PIU $endx 3 9 41 0 0 1 0          0 0 $[endx/2-35]"
-         "PIU $endx 3 9 41 0 0 1 0          0 0 $[endx/2-1]"
-         "ARR 1    12 6 28 0 0 0 $[endx-29] 0 0 $[endx/2-16]")
+    INT=("PIU $endx 30 90 41 0 0 1 0          0 0 $[endx/2-1]"
+         "PIU $endx 17 9 41 0 0 1 0          0 0 $[endx/2-40]"
+         "ARR 1    24 6 28 0 0 0 $[endx-29] 0 0 $[endx/2-16]")
     while true; do
         sleep $spd; screen=
         OI=(${INT[i]})
@@ -1316,7 +1320,7 @@ intro () {
         printf "$screen"
         [[ $i -gt ${#INT[@]} ]] && break
     done
-    XY $[endx/2+32] 11 "$version"
+    XY $[endx/2+30] 11 "$version"
 }
 
 HCI=0 SCI=1 HSI=0 H1C=${H1C:-$DHC} H1S=${H1S:-$DHS} S1C=${S1C:-$DSC}
@@ -1401,7 +1405,7 @@ enter_server () {
 game=single
 type=team
 menu () {
-     item=1 MX=$[$endx/4+4] MY=$[$endy-6]
+     item=1 MX=$[$endx/4+40] MY=$[$endy-6]
     items=('' "start $game" 'multiplayer' 'configure' 'exit')
     while true; do
         selector || ${items[$?]// */} || break
