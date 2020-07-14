@@ -604,11 +604,15 @@ sprite_msngr () {
     #2 _____/_/   +------------------+~
     #3(°_\ |_)---<| Die alien scum! -~
     #4    \|      +-----------------~
+##### TARDIS
     ####################  1       2   3       4      5        6       7       8   9   A   B   C         D       E       F  ...                            #0
-    cut $SX  $OY    $CM1 ''      ''  ''      ''     ''       ''      ''   $X1'_' '_' ' '                                                                  #1
-    cut $SX $[OY+1] $CM2 ''   $X2'_' '_'     '_'    '_'      '_'     '/'     '_' '/' ' ' ''  '' $X3$CM4'+' $CM4'-' $CM4'-' ${line[@]}  $SKY${flame1[AS]}  #2
-    cut $SX $[OY+2] $CM1 '(' $UND'°' ' ' $CM2'\\'   ' '  $CM3'|' $UND' ' $CM3')' '-' '-' '-' '<'   $CM5'|' $CM5' ' ${new_ad[@]} $CM5' ' $SKY${flame2[AS]} #3
-    cut $SX $[OY+3] $CM2 ''      ''  ''       '' $X4'\\' $CM3'|'     ' '     ''  ''  ''  ''  '' $X5$CM4'+' ${line[@]} $SKY${flame3[AS]}                   #4
+    cut $SX  $OY    $CM1 ' '      '-'  '-'      ' '    ##### $SKY${flame1[AS]}
+    cut $SX $[OY+1] $BLU '|'   $X2'='  '='     '|' ' '
+    cut $SX $[OY+2] $BLU '|'      '='  '='     '|'   ' '
+    cut $SX $[OY+3] $BLU '|'      ' '  ' '       '|' ' '
+    cut $SX $[OY+3] $BLY '='      '='  '='     '='
+
+
 }
 
 sprite_crate () {
